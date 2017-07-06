@@ -242,7 +242,7 @@ $(document).ready(function(){
 											count2++;
 										});	
 										$($("#up_menu_signal" + count + " .inter_stage_timings_signal").find('input')).each(function(){
-											$(this).val(plans[count].StageTime[count2].InterStageTime);
+											$(this).val(plans[count].StageTime[count4].InterStageTime);
 											count4++;
 										});						
 										count++;

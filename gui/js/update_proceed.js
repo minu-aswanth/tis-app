@@ -171,8 +171,8 @@ $( document ).ready(function() {
 					}
 					up_plan_stage_json = get_json_from_plan_stages(plan_stages);
 					console.log($('.up_proceed').attr('signal_id'))
-					// delete_signal($('.up_proceed').attr('signal_id'), "");
-					// update_add_signal();
+					delete_signal($('.up_proceed').attr('signal_id'), "");
+					update_add_signal();
 					update_signal_plans();
 				}
 			}
@@ -234,7 +234,7 @@ $( document ).ready(function() {
 		if(check == 0){
 			console.log("Allo");
 			$.ajax({
-				url: '../utils/update_signal_group.php',
+				url: '../utils/update_signal_plans.php',
 				data: {
 					signal_scn: signal_scn,
 					group_scn: group_scn,
