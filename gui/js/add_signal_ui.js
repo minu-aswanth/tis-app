@@ -232,10 +232,12 @@ $(document).ready(function(){
 							$('.up_stage_timings_signal').replaceWith(rows).promise().done(function(){
 								$('.inter_stage_timings_signal').replaceWith(rows2).promise().done(function(){
 									var count = 0;
-									var count2 = 0;
-									var count4 = 0;
 									$($(".up_phases_tabs_signal").find('a')).each(function(){
+										var count2 = 0;
+										var count4 = 0;										
+										console.log($("#up_menu_signal0 .up_stage_timings_signal").find('input'));
 										$($("#up_menu_signal" + count + " .up_stage_timings_signal").find('input')).each(function(){
+											console.log(count2);
 											$(this).val(plans[count].StageTime[count2].StageTime);
 											count2++;
 										});	
