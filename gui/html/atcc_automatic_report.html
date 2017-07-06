@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel='shortcut icon' type='image/x-icon' href='../images/favicon.ico' />
+	<title>Traffic Intelligence Server</title>
+	<script src="../libraries/jquery/jquery-2.1.4.js"></script>
+	<script src="../libraries/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../js/get_roles.js"></script>
+	<script src="../js/active_mode_atcc.js"></script>
+	<script src="../js/atcc_devices.js"></script>
+	<script src="../js/atcc.js"></script>
+	<script src="../js/get_username.js"></script>
+	<script src="../js/logout.js"></script>
+	<script src="../js/authenticate.js"></script>
+	<script src="../js/atcc_automatic.js"></script>
+	<link rel="stylesheet" href="../libraries/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/header.css">	
+	<link rel="stylesheet" href="../css/o_basic.css">
+	<link rel="stylesheet" href="../css/footer.css">
+	<link rel="stylesheet" href="../css/login.css">
+	<link rel="stylesheet" href="../css/nhome.css">
+	<link rel="stylesheet" href="../css/atcc.css">
+	<script src="../js/authenticate.js"></script>
+	<script src="../js/get_header.js"></script>
+</head>
+<body onload="fetchusername();">
+<div class="row" id="header">
+  <div class="col-sm-2"><a href="http://www.masstrans.in/" target="_blank"><img src="../images/logo.jpg" style="max-width:100%;max-height:100%;"></a></div>
+  <div class="col-sm-8" style="margin-top:10px" id="title"><b><font color="white" size="5em">Highway Traffic Management System</font></b></div>
+  <div class="col-sm-2">&nbsp</div>
+</div>
+
+<div style="text-align:center;margin-top:40px" class="row"> 
+	<div class="col-sm-2" id="left_menu" style="padding-right:50px;padding-left:50px">
+		<ul class="nav nav-pills nav-stacked red" id="menu_bar">
+			<font color="gray">User: </font><font id="usernameGet" color="gray" align="left"></font>
+		</ul>
+	</div> 
+	<div class="col-sm-9" id="top_content">
+		<ul class="nav nav-tabs nav-justified">
+  			<li><a href="atcc_map.html">Map</a></li>
+  			<li><a href="atcc_live.html">Live Data</a></li>
+  			<li><a href="atcc_real.html">Real Time Data</a></li>
+  			<li><a href="atcc_createReport.html">Report</a></li>
+  			<li><a href="atcc_createArchivalReport.html">Archival Report</a></li>
+  			<li><a href="nms_atcc2.html">NMS-ATCC</a></li>
+			<li ><a href="atcc_setup.html">Set Up</a></li>
+			<li class="active"><a href="atcc_automatic_report.html">Automatic Report</a></li>
+		</ul>
+	</div>
+	<div class="col-sm-9 table-responsive">
+	
+	<br><br>
+	<table id="dataTable" width="100%" border="1" align="center" class="table">
+	
+		<input type="button" value="Add User" onclick='openAddmodal()' class="btn btn-danger" style="background-color:#993232"/>&nbsp&nbsp
+		<input type="button" value="Edit User" onclick="openEditModal()" class="editbtn btn btn-danger" style="background-color:#993232"/>&nbsp&nbsp
+		<input type="button" value="Delete User" onclick="deleteRow()" class="btn btn-danger" style="background-color:#993232"/> <br><br>
+ 
+    
+		<thead bgcolor="#993232">
+		<tr>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td bgcolor="#993232"><font color="white">Row Id</td>
+			<td bgcolor="#993232"><font color="white">User Name</td>
+			<td bgcolor="#993232"><font color="white">Frequency</td>
+			<td bgcolor="#993232"><font color="white">Updated Time</td>	
+		</tr>
+		</thead>
+		<tbody id="auto_users">
+        </tbody>
+    </table>
+    <div>
+
+<div class="modal fade" id="add_modal" role="dialog">
+	<div class="modal-dialog">
+  		<div class="modal-content">
+  			<button id="cancelModal" type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">
+  				<span class="glyphicon glyphicon-remove"></span> Cancel
+  			</button>
+    		<div class="modal-header" style="padding:10px 50px;">
+	  			<h3>Add User</h3>
+    		</div>
+    		<div class="modal-body table-responsive" style="padding:0px 50px;">
+    			<div class="add_accident_div">
+					<table class="table table-bordered">
+						<tbody class="add_acc_body">
+							<tr>
+								<td colspan="1">Select Frequency</td>
+								<td colspan="1"><select id="timerange" name="timerange"><br>
+								<option value = "Monthly">Monthly</option>
+								<option value = "Weekly">Weekly</option>
+								<option value = "Daily">Daily</option>
+								<option value = "Hourly">Hourly</option>
+							</select></td>
+							</tr>
+							<tr>
+								<td colspan="1">Select User</td>
+								<td colspan="1"><select id="users_list"><option selected> </option></select></td>
+							</tr>
+							<tr>
+								<td colspan="1">Selected User</td>
+								<td colspan="1"><table id="selected_users_list"></table></td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="add_acc_button_table">
+						<tbody>
+							<tr>
+								<td colspan="1">&nbsp;</td>
+								<td colspan="2">&nbsp;</td>
+								<td colspan="2"><button id="add_action_submit" class="btn btn-danger add_acc_btn">Submit</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br><br><br>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="editModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button id="cancelModal_edit" type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+            <div class="modal-header" style="padding:10px 50px;">
+	  			<h3>Edit Device<h3>
+    		</div>
+            <div class="modal-body table-responsive" style="padding:40px 50px;">
+            	<form role="form">
+		        <table class="table">
+					<tbody id="edit_modal_content">
+						<tr>
+							<td>Action Name</td>
+							<td id="name_modal">Default</td>
+						</tr>
+						<tr>
+							<td colspan="1">Check List Types Required</td>
+							<td><select id="timerange_edit" name="timerange"><br>
+								<option value = "Monthly">Monthly</option>
+								<option value = "Weekly">Weekly</option>
+								<option value = "Daily">Daily</option>
+								<option value = "Hourly">Hourly</option>
+							</select></td>
+							<td><table id="selected_users_list"></table></td>
+						</tr>
+					</tbody>
+				</table>
+					<button type="button" class="btn btn-success btn-block" onclick="editRow();"></span>Edit Action</button>
+				</form>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- 	<div class="col-sm-9">
+	
+		<br>
+			<table align="center">
+				<tr align="center"><td><h3>Edit Options for Automated MET Reports</h3></td></tr>
+				<tr align="center"><td>Select Frequency</td><td>
+							<select id="timerange" name="timerange"><br>
+								<option value = "Monthly">Monthly</option>
+								<option value = "Weekly">Weekly</option>
+								<option value = "Daily">Daily</option>
+								<option value = "Hourly">Hourly</option>
+							</select></td></tr>
+				<tr align="center"><td>Select Users</td><td><select id="users_list"></select></td><td><button id="add_user" class="btn btn-danger">Add</button></td></tr>
+				<tr align="center"><td>Selected Users</td><td><table id="selected_users_list"></table></td></tr>
+				<tr align="center"><td><button class="btn btn-success" id="edit_options_submit">Submit</button></td></tr>
+			</table>
+	</div>
+	</div>
+</div> -->
+
+<nav class="navbar navbar-fixed-bottom" id="footer">
+	<div class="navbar-header">
+	      <a class="navbar-brand" href="http://www.itspe.co.in/products/traffic-intelligence-server" target="_blank">Powered by Traffic Intelligence Server</a>
+	</div>
+	<a class="navbar-brand navbar-right" href="http://www.itspe.co.in/" target="_blank">
+		Copyrights @ ITS Planners and Engineers
+	</a>
+</nav>
+</body>
+</html>

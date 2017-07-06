@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel='shortcut icon' type='image/x-icon' href='../images/favicon.ico' />
+	<title>Traffic Intelligence Server</title>
+	<script src="../libraries/jquery/jquery-2.1.4.js"></script>
+	<script src="../libraries/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../libraries/jquery/jquery-1.6.4.min.js" type="text/javascript"></script>
+    <script src="../libraries/jquery/jquery-ui.min.js" type="text/javascript"></script>
+	<script src="../js/get_roles.js"></script>
+	<script src="../js/active_mode_ecb.js"></script>
+	<script src="../js/get_username.js"></script>
+	<script src="../js/logout.js"></script>
+	<script src="../js/ecb.js"></script>
+	<script src="../js/get_header.js"></script>
+	<link rel="stylesheet" href="../libraries/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/header.css">	
+	<link rel="stylesheet" href="../css/basic.css">
+	<link rel="stylesheet" href="../css/footer.css">
+	<link rel="stylesheet" href="../css/login.css">
+	<link rel="stylesheet" href="../css/nhome.css">
+	<link rel="stylesheet" href="../css/ecb.css">
+	<link rel="stylesheet" href="../libraries/jquery/jquery-ui.css">
+	
+	<script>
+		$( document ).ready(function() {
+        	$(".datepicker").datepicker({ dateFormat: 'dd-mm-yy' });
+		});
+	</script>
+	<script src="../js/authenticate.js"></script>
+</head>
+<body onload="fetchusername();">
+	<div class="row" id="header">
+	  <div class="col-sm-2"><a href="http://www.masstrans.in/" target="_blank"><img src="../images/logo.jpg" style="max-width:100%;max-height:100%;"></a></div>
+<div class="col-sm-8" style="margin-top:10px" id="title"><b><font color="white" size="5em">Highway Traffic Management System</font></b></div>
+	   
+	  <div class="col-sm-2">&nbsp</div>
+	</div>
+
+	<div style="text-align:center;margin-top:40px" class="row"> 
+		<div class="col-sm-2" id="left_menu" style="padding-right:50px;padding-left:50px">
+			<ul class="nav nav-pills nav-stacked red" id="menu_bar">
+				<font color="gray">User: </font><font id="usernameGet" color="gray" align="left"></font>
+			</ul>
+		</div> 
+		<div class="col-sm-9" id="top_content">
+			<ul class="nav nav-tabs nav-justified">
+  				<li><a href="ecb.html">Map</a></li>
+  				<li><a href="nms_ecb2.html">NMS-ECB</a></li>
+  				<li class="active"><a href="ecb_map.html">Report</a></li>
+  				<!--li><a href="ecb_setup.html">Set Up</a></li-->
+			</ul>
+		</div>
+		<div class="col-sm-9">
+			<form method="post">
+				<br>
+				<table class="table">
+					<tr>
+						<td>Start Date</td>
+						<td><input type="text" id="startDate" placeholder = "dd-mm-yyyy" class="datepicker"/></td>
+
+						<td>End Date</td>
+						<td><input type="text" id="endDate" placeholder = "dd-mm-yyyy" class="datepicker"/></td>
+						
+						<td>Call Type</td>
+						<td>
+							<select id="callType" name="callType">
+								<option value=""></option>
+								<option value="INBOUND">INBOUND</option>
+								<option value="OUTBOUND">OUTBOUND</option>
+							</select>
+						</td>
+
+					</tr>
+					<tr>
+						<td>Dial Number</td>
+						<td><input type="text" id="dialNumber"/></td>
+
+						<td>Caller ID</td>
+						<td><input type="text" id="callerID"/></td>
+
+						<td>ECB Device</td>
+						<td><select id="ecb_device_chainage"></select></td>
+					</tr>
+					<tr>
+						<td>Call Status</td>
+						<td>
+							<select id="callStatus" name="callStatus">
+								<option value=""></option>
+								<option value="cancel">Cancel</option>
+								<option value="answered">Answered</option>
+								<option value="missedCall">Missed Call</option>
+							</select>
+						</td>
+
+						<td>Ticket Subject</td>
+						<td><input type="text" id="tktSubject"/></td>
+
+						<td>Ticket Status</td>
+						<td>
+							<select id="tktStatus" name="tktStatus">
+								<option value=""></option>
+								<option value="unassigned">Unassigned</option>
+								<option value="assigned">Assigned</option>
+								<option value="closed">Closed</option>
+							</select>
+						</td>
+
+					</tr>
+					
+				</table>
+				<table align="center">
+				<tr align="center">
+				<td>From Time:&nbsp; </td>
+				<td><input id="fromTime" type="time" class="form-control" style="width:100%"/></td>
+				<td>&nbsp;&nbsp;&nbsp;&nbsp; </td>
+				<td>To Time:&nbsp; </td>
+				<td><input id="toTime" type="time" class="form-control" style="width:100%"/></td>
+				<td>&nbsp;&nbsp;&nbsp;&nbsp;Order:&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" name="order" value="ascending" id="asc">Ascending
+				<input type="radio" name="order" value="descending" id="des" checked>Descending
+				</td>
+				</tr>
+				</table><br>
+				<input id="createReport" type="button" value="Submit"/>
+				<input id="downloadReport" type="button" value="Download Excel Report"/>
+				<input id="downloadPDF" type="button" value="Download PDF Report"/>
+				<br><br>
+
+				<table class="table">
+					<tbody id="searchResult" class="pagination pagination-centered"></tbody>
+				</table>
+				<div class="col-md-12 text-center">
+		           <ul class="pagination pagination-lg pager" id="myPager"></ul>
+		           <br><br><br><br>
+		       </div>
+
+			</form>
+				
+
+		</div>
+	</div>
+
+
+
+	<nav class="navbar navbar-fixed-bottom" id="footer">
+		<div class="navbar-header"><a class="navbar-brand" href="http://www.itspe.co.in/products/traffic-intelligence-server" target="_blank">Powered by Traffic Intelligence Server</a>
+		      <a class="navbar-brand" href="#"></a>
+		</div>
+		<a class="navbar-brand navbar-right" href="http://www.itspe.co.in/" target="_blank">
+			Copyrights @ ITS Planners and Engineers
+		</a>
+	</nav>
+</body>
+</html>

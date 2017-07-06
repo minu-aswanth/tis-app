@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel='shortcut icon' type='image/x-icon' href='../images/favicon.ico' />
+	<title>Traffic Intelligence Server</title>
+	<script src="../libraries/jquery/jquery-2.1.4.js"></script>
+	<script src="../libraries/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../js/get_roles.js"></script>
+	<script src="../js/active_mode_vms.js"></script>
+	<script src="../js/vms_devices.js"></script>
+	<script src="../js/vms_display_msg.js"></script>
+	<script src="../js/vms.js"></script>
+	<script src="../js/get_username.js"></script>
+	<script src="../js/logout.js"></script>
+	<script>
+		function inputFocus(i){
+	    	if(i.value==i.defaultValue){ i.value=""; i.style.color="#000"; }
+		}
+		function inputBlur(i){
+	    	if(i.value==""){ i.value=i.defaultValue; i.style.color="#888"; }
+		}
+	</script>
+	<script src="../js/get_header.js"></script>
+	<link rel="stylesheet" href="../libraries/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/header.css">	
+	<link rel="stylesheet" href="../css/basic.css">
+	<link rel="stylesheet" href="../css/footer.css">
+	<link rel="stylesheet" href="../css/login.css">
+	<link rel="stylesheet" href="../css/nhome.css">
+	<link rel="stylesheet" href="../css/vms.css">
+	<script src="../js/authenticate.js"></script>
+</head>
+<body onload="fetchusername();">
+<div class="row" id="header">
+  <div class="col-sm-2"><a href="http://www.masstrans.in/" target="_blank"><img src="../images/logo.jpg" style="max-width:100%;max-height:100%;"></a></div>
+<div class="col-sm-8" style="margin-top:10px" id="title"><b><font color="white" size="5em">Highway Traffic Management System</font></b></div>
+   
+  <div class="col-sm-2">&nbsp</div>
+</div>
+
+<div style="text-align:center;margin-top:40px" class="row"> 
+	<div class="col-sm-2" id="left_menu" style="padding-right:50px;padding-left:50px">
+		<ul class="nav nav-pills nav-stacked red" id="menu_bar">
+			<font color="gray">User: </font><font id="usernameGet" color="gray" align="left"></font>
+		</ul>
+	</div> 
+	<div class="col-sm-9" id="top_content">
+		<ul class="nav nav-tabs nav-justified">
+  			<li><a href="vms_map.html">Map</a></li>
+  			<li><a href="vms_live.html">Live Data</a></li>
+  			<li><a href="nms_vms2.html">NMS-VMS</a></li>
+			<li><a href="vms_logs.html">VMS Log Report</a></li>
+			<li class="active"><a href="vms_display_msg.html">Display Message</a></li>
+			<li><a href="vms_set_msg.html">Set Message</a></li>
+			<li><a href="vms_setup.html">Set Up</a></li>
+		</ul>
+	</div>
+	<div class="col-sm-9 table-responsive">
+	
+		<br><br>
+		<select id="scns"></select>
+		<select id="slide">
+			<option value="0">Slide Number</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9">9</option>
+			<option value="10">10</option>
+			<option value="11">11</option>
+			<option value="12">12</option>
+			<!--option value="13">13</option>
+			<option value="14">14</option-->
+		</select>
+		<select id="msg_texts"></select>
+		<!--input id="time" value="time(in sec)" type="text"/-->
+		<input type="text" id="time" value="time(in sec)" style="color:#888;" onfocus="inputFocus(this)" onblur="inputBlur(this)" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
+		<button type="button" id="set_message">Set Message</button>
+		<br><br>
+		
+	</div>
+
+	<div class="col-sm-9 table-responsive">
+		<table id="dataTable" width="100%" border="1" align="center" class="table">
+			
+			<input type="button" value="Delete Display" onclick="deleteMessage()" class="btn btn-danger" style="background-color:#993232"/> <br><br>
+	 
+			<thead bgcolor="#993232">
+			<tr>
+				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				<td bgcolor="#993232"><font color="white">SCN</td>
+				<td bgcolor="#993232"><font color="white">Slide</td>
+				<td bgcolor="#993232"><font color="white">Message</td>
+				<td bgcolor="#993232"><font color="white">Time(in sec)</td>
+			</tr>
+			</thead>
+			<tbody id="vms_messages">
+	        </tbody>
+	    </table>
+		
+		<br><br>
+		<!--input type="button" value="Submit" onclick="submit('dataTable')" /-->
+	
+	</div>
+
+</div>
+	
+	  
+
+
+<nav class="navbar navbar-fixed-bottom" id="footer">
+	<div class="navbar-header">
+	      <a class="navbar-brand" href="http://www.itspe.co.in/products/traffic-intelligence-server" target="_blank">Powered by Traffic Intelligence Server</a>
+	</div>
+	<a class="navbar-brand navbar-right" href="http://www.itspe.co.in/" target="_blank">
+		Copyrights @ ITS Planners and Engineers
+	</a>
+</nav>
+</body>
+</html>

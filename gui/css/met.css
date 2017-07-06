@@ -1,0 +1,112 @@
+#dataTable tr td input{
+  width:100%;
+  vertical-align: center;
+}
+
+th {
+  text-align: center;
+}
+
+.table-responsive{
+  overflow-x:visible;
+}
+
+
+.container {
+    width: 600px;
+    margin: 100px auto;
+    text-align: center;
+  }
+
+  .gauge {
+    width: 250px;
+    height: 250px;
+    display: inline-block;
+  }
+
+a:link.button,
+a:active.button,
+a:visited.button,
+a:hover.button {
+    margin: 0px 0px 0 0px;
+    padding: 0px 0px;
+}
+
+.col-sm-9{
+  overflow: scroll;
+}
+
+.compass {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 0px auto;
+  border-radius: 100px;
+  border: 2px solid #444;
+  overflow: hidden;
+}
+
+.compass .disc {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 200;
+  background: url('../images/compass.svg');
+  width: 76px;
+  height: 76px;
+  background-size: 100%;
+}
+
+.compass .arrow {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 1000;
+  background: url('../images/arrow.svg');
+  width: 76px;
+  height: 76px;
+  background-size: 100%;
+}
+
+.pagination>.active>a,
+.pagination>.active>a:focus, 
+.pagination>.active>a:hover, 
+.pagination>.active>span, 
+.pagination>.active>span:focus, 
+.pagination>.active>span:hover{
+  background-color: #800000;
+  border-color: #800000;
+  color:white;
+}
+
+.pagination>li>a,
+.pager li>a:focus, 
+.pager li>a:hover{
+  color:#800000;
+}
+
+.table_container{
+  width:47%;
+  float:left;
+  display:inline-block;
+}
+.table_container>p{
+  margin: 0;
+  padding: 5px;
+  background: #cc9999;
+  color: #800000;
+}
+.table th{
+  background:#993232;
+  color:#fff;
+  border:1px solid #ddd;
+  font-weight:400;
+}
+
+.leaflet-control-container .leaflet-routing-container-hide {
+    margin-right: -3400px;
+}
+
+.leaflet-control-container .leaflet-routing-container-hide {
+    display: none;
+}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+        <link rel='shortcut icon' type='image/x-icon' href='../images/favicon.ico' />
+        <title>Traffic Intelligence Server</title>
+        <script src="../libraries/jquery/jquery-2.1.4.js"></script>
+        <script src="../libraries/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../js/active_mode_cctv.js"></script>
+        <script src="../js/cctv_devices.js"></script>
+        <!--script src="../js/cctv.js"></script-->
+   <script src="../js/get_username.js"></script>
+   <script src="../js/logout.js"></script>
+   <script src="../js/cctv_live_public.js"></script>
+   <script src="../js/get_roles.js"></script>
+   <script src="../js/authenticate.js"></script>
+        <link rel="stylesheet" href="../libraries/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/header.css">
+        <link rel="stylesheet" href="../css/basic.css">
+        <link rel="stylesheet" href="../css/footer.css">
+        <link rel="stylesheet" href="../css/login.css">
+        <link rel="stylesheet" href="../css/nhome.css">
+        <link rel="stylesheet" href="../css/cctv.css">
+<script src="../js/authenticate.js"></script></head>
+<body onload="fetchusername();">
+<div class="row" id="header">
+  <div class="col-sm-2"><a href="http://www.masstrans.in/" target="_blank"><img src="../images/logo.jpg" style="max-width:100%;max-height:100%;"></a></div>
+  <div class="col-sm-8" style="margin-top:10px"><b><font color="white" size="5em">Highway Traffic Management System</font></b></div>
+  <div class="col-sm-2">&nbsp</div>
+</div>
+
+<div style="text-align:center;margin-top:40px" class="row">
+        <div class="col-sm-2" id="left_menu" style="padding-right:50px;padding-left:50px">
+                <ul class="nav nav-pills nav-stacked red" id="menu_bar">
+                        <font color="gray">User: </font><font id="usernameGet" color="gray" align="left"></font>
+                </ul>
+        </div>
+        <div class="col-sm-9" id="top_content">
+                <ul class="nav nav-tabs nav-justified">
+                        <li><a href="cctv_map.html">Map</a></li>
+                        <li><a href="cctv_live.html">Live Data (Local)</a></li>
+         <li class="active"><a href="cctv_live_public.html">Live Data (Public)</a></li>
+                        <!--li><a href="cctv_createReport.html">Report</a></li-->
+                        <li><a href="nms_cctv2.html">NMS-CCTV</a></li>
+                        <li><a href="cctv_setup.html">Set Up</a></li>
+                </ul>
+        </div>
+        <div class="col-sm-9 table-responsive" style="text-align:center">
+
+                <table width="70%" align="center">
+         <!--tbody id="cctv_raw"></tbody-->
+
+
+
+
+            <tr height="35">
+               <td bgcolor="#993232" style="border:1px solid #993232">
+                  <a href="./cctvWindow.html?ip=192.168.1.201" target="_blank">
+                     <font color="white">Camera 1</font>
+                  </a>
+               </td>
+               <td width="2"></td>
+               <td bgcolor="#993232" style="border:1px solid #993232">
+                  <a href="./cctvWindow.html?ip=192.168.1.202" target="_blank">
+                     <font color="white">Camera 2</font>
+                  </a>
+               </td>
+               <!--td width="2"></td>
+               <td bgcolor="#993232" style="border:1px solid #993232">
+                  <a href="./cctvWindow.html?ip=192.168.1.203" target="_blank">
+                     <font color="white">Camera 3</font>
+                  </a>
+               </td-->
+            </tr>
+            <tr height="140">
+               <td style="border:1px solid black"> <a href="./cctvWindow.html?ip=www.livetrafficindia.com/video/kl001/zoom1.mp4" target="_blank">
+                  <!--img src="http://www.livetrafficindia.com/video/kl001/vid1.mp4" height="150"></img-->
+                                                <video width="320" height="240" autoplay loop>
+                                                        <source src="http://www.livetrafficindia.com/video/kl001/vid1.mp4" type="video/mp4">
+                                                </video>
+                  </a>
+               </td>
+               <td width="2"></td>
+               <td style="border:1px solid black"> <a href="./cctvWindow.html?ip=www.livetrafficindia.com/video/kl001/zoom1.mp4" target="_blank">
+                  <!--img src ="http://www.livetrafficindia.com/video/kl001/vid2.mp4" height="150"></img-->
+                                        <video width="320" height="240" autoplay loop>
+                                                <source src="http://www.livetrafficindia.com/video/kl001/vid2.mp4" type="video/mp4">
+                                        </video>
+                                </a>
+               </td>
+
+
+
+               <!--td width="2"></td>
+               <td style="border:1px solid black"> <a href="./cctvWindow.html?ip=192.168.1.203" target="_blank">
+                  <img src ="http://192.168.1.203/video2.mjpg" height="150"></img></a>
+               </td-->
+            </tr>
+            <tr height="5"></tr>
+            <tr height="35">
+               <td bgcolor="#993232" style="border:1px solid #993232">
+                  <a href="./cctvWindow.html?ip=192.168.1.204" target="_blank">
+                     <font color="white">Camera 3</font>
+                  </a>
+               </td>
+               <td width="2"></td>
+               <td bgcolor="#993232" style="border:1px solid #993232">
+                  <a href="./cctvWindow.html?ip=192.168.1.205" target="_blank">
+                     <font color="white">Camera 4</font>
+                  </a>
+               </td>
+               <!--td width="2"></td>
+               <td bgcolor="#993232" style="border:1px solid #993232">
+                  <a href="./cctvWindow.html?ip=192.168.1.209" target="_blank">
+                     <font color="white">Camera 6</font>
+                  </a>
+               </td-->
+            </tr>
+            <tr height="140">
+               <td style="border:1px solid black"> <a href="./cctvWindow.html?ip=www.livetrafficindia.com/video/kl001/zoom1.mp4" target="_blank">
+                  <!--img src ="http://www.livetrafficindia.com/video/kl001/zoom1.mp4" height="150"></img-->
+                                  <video width="320" height="240" autoplay loop>
+                                        <source src="http://www.livetrafficindia.com/video/kl001/zoom1.mp4" type="video/mp4">
+                                </video>
+
+                                  </a>
+               </td>
+               <td width="2"></td>
+               <td style="border:1px solid black"> <a href="./cctvWindow.html?ip=www.livetrafficindia.com/video/kl001/zoom1.mp4" target="_blank">
+                  <!--img src ="http://www.livetrafficindia.com/video/kl001/zoom1.mp4" height="150"></img-->
+                                  <video width="320" height="240" autoplay loop>
+                                        <source src="http://www.livetrafficindia.com/video/kl001/zoom2.mp4" type="video/mp4">
+                                </video>
+                                  </a>
+               </td>
+               <!--td width="2"></td>
+               <td style="border:1px solid black"> <a href="./cctvWindow.html?ip=192.168.1.209" target="_blank">
+                  <img src ="http://192.168.1.209/video2.mjpg" height="150"></img></a>
+               </td-->
+            </tr>
+            <!--tr height="5"></tr>
+            <tr height="35">
+               <td bgcolor="#993232" style="border:1px solid #993232">
+                  <a href="./cctvWindow.html?ip=192.168.1.206" target="_blank">
+                     <font color="white">Camera 7</font>
+                  </a>
+               </td>
+               <td width="2"></td>
+               <td bgcolor="#993232" style="border:1px solid #993232">
+                  <a href="./cctvWindow.html?ip=192.168.1.207" target="_blank">
+                     <font color="white">Camera 8</font>
+                  </a>
+               </td>
+               <td width="2"></td>
+               <td bgcolor="#993232" style="border:1px solid #993232">
+                  <a href="./cctvWindow.html?ip=192.168.1.208" target="_blank">
+                     <font color="white">Camera 9</font>
+                  </a>
+               </td>
+            </tr>
+            <tr height="140">
+               <td style="border:1px solid black"> <a href="./cctvWindow.html?ip=192.168.1.206" target="_blank">
+                  <img src ="http://192.168.1.206/video2.mjpg" height="150"></img></a>
+               </td>
+               <td width="2"></td>
+               <td style="border:1px solid black"> <a href="./cctvWindow.html?ip=192.168.1.207" target="_blank">
+                  <img src ="http://192.168.1.207/video2.mjpg" height="150"></img></a>
+               </td>
+               <td width="2"></td>
+               <td style="border:1px solid black"> <a href="./cctvWindow.html?ip=192.168.1.208" target="_blank">
+                  <img src ="http://192.168.1.208/video2.mjpg" height="150"></img></a>
+               </td>
+            </tr>
+            <tr height="5"></tr>
+            <tr height="35">
+               <td bgcolor="#993232" style="border:1px solid #993232">
+                  <a href="./cctvWindow.html?ip=192.168.1.210" target="_blank">
+                     <font color="white">Camera 10</font>
+                  </a>
+               </td>
+            </tr>
+            <tr height="140">
+               <td style="border:1px solid black"> <a href="./cctvWindow.html?ip=192.168.1.210" target="_blank">
+                  <img src ="http://192.168.1.210/video2.mjpg" height="150"></img></a>
+               </td>
+            </tr-->
+
+
+
+
+            <br><br>
+         </table>
+         <br><br><br><br>
+
+        </div>
+
+
+</div>
+
+
+<nav class="navbar navbar-fixed-bottom" id="footer">
+        <div class="navbar-header">
+              <a class="navbar-brand" href="http://www.itspe.co.in/products/traffic-intelligence-server" target="_blank">Powered by Traffic Intelligence Server</a>
+        </div>
+        <a class="navbar-brand navbar-right" href="http://www.itspe.co.in/" target="_blank">
+                Copyrights @ ITS Planners and Engineers
+        </a>
+</nav>
+</body>
+</html>

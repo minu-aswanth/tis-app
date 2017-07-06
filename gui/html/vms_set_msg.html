@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel='shortcut icon' type='image/x-icon' href='../images/favicon.ico' />
+	<title>Traffic Intelligence Server</title>
+	<script src="../libraries/jquery/jquery-2.1.4.js"></script>
+	<script src="../libraries/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../libraries/textfill/jquery.textfill.js"></script>
+	<script src="../libraries/textfill/jquery.textfill.min.js"></script>
+	<script src="../js/get_roles.js"></script>
+	<script src="../js/active_mode_vms.js"></script>
+	<script src="../js/vms_set_msg.js"></script>
+	<script src="../js/vms_msg.js"></script>
+	<script src="../js/get_username.js"></script>
+	<script src="../js/logout.js"></script>
+	<script src="../js/get_header.js"></script>
+	<link rel="stylesheet" href="../libraries/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/header.css">	
+	<link rel="stylesheet" href="../css/basic.css">
+	<link rel="stylesheet" href="../css/footer.css">
+	<link rel="stylesheet" href="../css/login.css">
+	<link rel="stylesheet" href="../css/nhome.css">
+	<link rel="stylesheet" href="../css/vms.css">
+	<script src="../js/authenticate.js"></script>
+</head>
+<body onload="fetchusername();">
+<div class="row" id="header">
+  <div class="col-sm-2"><a href="http://www.masstrans.in/" target="_blank"><img src="../images/logo.jpg" style="max-width:100%;max-height:100%;"></a></div>
+<div class="col-sm-8" style="margin-top:10px" id="title"><b><font color="white" size="5em">Highway Traffic Management System</font></b></div>
+   
+  <div class="col-sm-2">&nbsp</div>
+</div>
+
+<div style="text-align:center;margin-top:40px" class="row"> 
+	<div class="col-sm-2" id="left_menu" style="padding-right:50px;padding-left:50px">
+		<ul class="nav nav-pills nav-stacked red" id="menu_bar">
+			<font color="gray">User: </font><font id="usernameGet" color="gray" align="left"></font>
+		</ul>
+	</div> 
+	<div class="col-sm-9" id="top_content">
+		<ul class="nav nav-tabs nav-justified">
+  			<li><a href="vms_map.html">Map</a></li>
+  			<li><a href="vms_live.html">Live Data</a></li>
+  			<li><a href="nms_vms2.html">NMS-VMS</a></li>
+  			<li><a href="vms_logs.html">VMS Log Report</a></li>
+			<li><a href="vms_display_msg.html">Display Message</a></li>
+			<li class="active"><a href="vms_set_msg.html">Set Message</a></li>
+			<li><a href="vms_setup.html">Set Up</a></li>
+		</ul>
+	</div>
+	<div class="col-sm-9 table-responsive">
+	
+	<br><br>
+	<table id="dataTable" width="100%" border="1" align="center" class="table">
+	
+		<input type="button" value="Add Message" onclick="openModal()" class="btn btn-danger" style="background-color:#993232"/>&nbsp&nbsp
+		<input type="button" value="Edit Message" onclick="openEditModal()" class="editbtn btn btn-danger" style="background-color:#993232"/>&nbsp&nbsp
+		<input type="button" value="Delete Message" onclick="deleteRow()" class="btn btn-danger" style="background-color:#993232"/> <br><br>
+ 
+    
+		<thead bgcolor="#993232">
+		<tr>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td bgcolor="#993232"><font color="white">Sr. No.</td>
+			<td bgcolor="#993232"><font color="white">Message Text</td>
+			<td bgcolor="#993232"><font color="white">Category</td>
+			<td bgcolor="#993232"><font color="white">Command Phrase</td>
+			<td bgcolor="#993232" style="display:none;"><font color="white">Row Identifier</td>
+		</tr>
+		</thead>
+		<tbody id="vms_set_msg">
+        </tbody>
+    </table>
+		
+		<br><br>
+		<!--input type="button" value="Submit" onclick="submit('dataTable')" /-->
+	
+	</div>
+	</div>
+	
+	  
+<div class="modal fade" id="myModal" role="dialog">
+<div class="modal-dialog">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+  <button id="cancelModal" type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+    <div class="modal-header" style="padding:10px 50px;">
+	  <h3>Add New Message<h3>
+    </div>
+    <div class="modal-body table-responsive" style="padding:0px 50px;">
+      <form role="form">
+        <table class="table">
+			<tbody>
+				<tr>
+					<td>Top Line</td>
+					<!--td> <textarea rows="4" cols="50" id="messageText"></textarea> </td-->
+					<td><input type="text" id="tMessageText"></input></td>
+				</tr>
+				<tr>
+					<td>Mid Line</td>
+					<!--td> <textarea rows="4" cols="50" id="messageText"></textarea> </td-->
+					<td><input type="text" id="mMessageText"></input></td>
+				</tr>
+				<tr>
+					<td>Bottom Line</td>
+					<!--td> <textarea rows="4" cols="50" id="messageText"></textarea> </td-->
+					<td><input type="text" id="bMessageText"></input></td>
+				</tr>
+				<tr>
+					<td>Font size</td>
+					<td>
+						<input type="text" id="maxsize" value="16"></input>
+					</td>
+				</tr>
+				<tr>
+					<td>Category</td>
+					<td> <input id="category" type="text"/> </td>
+				</tr>
+				<tr>
+					<td>Command Phrase</td>
+					<td> <input id="commandPhrase" type="text"/> </td>
+				</tr>
+				<tr><td>&nbsp;</td></tr><tr><td>&nbsp;</td></tr>
+				<tr>
+					<td>Demo VMS Screen</td>
+					<td>
+						<div class="jtextfill" style="width:120px; height:72px;border:solid 1px black;">
+							<span class="messageTextVal"></span>
+						</div>
+					</td>
+				</tr>
+				
+
+			</tbody>
+		</table>
+        <button type="button" class="btn btn-success btn-block" id="addMessage"></span> Add Message</button>  
+      </form>
+    </div>
+    
+  </div>
+  
+</div>
+</div> 
+
+</div>
+<div class="modal fade" id="editModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button id="cancelModal_edit" type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+            <div class="modal-header" style="padding:10px 50px;">
+	  			<h3>Edit Message<h3>
+    		</div>
+            <div class="modal-body table-responsive" style="padding:40px 50px;">
+            	<form role="form">
+		        <table class="table">
+					<tbody id="edit_modal_content">
+						<tr>
+							<td>Message ID</td>
+							<td id="message_id"></td>
+						</tr>
+						<tr>
+							<td>Top Line</td>
+							<!--td> <textarea rows="4" cols="50" id="messageText"></textarea> </td-->
+							<td><input type="text" id="tMessageText_modal"></input></td>
+						</tr>
+						<tr>
+							<td>Mid Line</td>
+							<!--td> <textarea rows="4" cols="50" id="messageText"></textarea> </td-->
+							<td><input type="text" id="mMessageText_modal"></input></td>
+						</tr>
+						<tr>
+							<td>Bottom Line</td>
+							<!--td> <textarea rows="4" cols="50" id="messageText"></textarea> </td-->
+							<td><input type="text" id="bMessageText_modal"></input></td>
+						</tr>
+						<tr>
+							<td>Font size</td>
+							<td>
+								<input type="text" id="maxsize_modal" value="20"></input>
+							</td>
+						</tr>
+						<tr>
+							<td>Category</td>
+							<td> <input id="category_modal" type="text"/> </td>
+						</tr>
+						<tr>
+							<td>Command Phrase</td>
+							<td> <input id="commandPhrase_modal" type="text"/> </td>
+						</tr>
+						<tr><td>&nbsp;</td></tr><tr><td>&nbsp;</td></tr>
+						<tr>
+							<td>Demo VMS Screen</td>
+							<td>
+								<div class="jtextfill_modal" style="width:120px; height:72px;border:solid 1px black;">
+									<span class="messageTextVal_modal" id="demoMsg_modal"></span>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+					<button type="button" class="btn btn-success btn-block" onclick="editRow();"></span>Edit Message</button>
+				</form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<nav class="navbar navbar-fixed-bottom" id="footer">
+	<div class="navbar-header">
+	      <a class="navbar-brand" href="http://www.itspe.co.in/products/traffic-intelligence-server" target="_blank">Powered by Traffic Intelligence Server</a>
+	</div>
+	<a class="navbar-brand navbar-right" href="http://www.itspe.co.in/" target="_blank">
+		Copyrights @ ITS Planners and Engineers
+	</a>
+</nav>
+</body>
+</html>
