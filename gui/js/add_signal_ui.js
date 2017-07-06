@@ -188,17 +188,18 @@ $(document).ready(function(){
 
 				//minu's space
 				var group_scn = $($('input[name=signals]:checked').closest("tr").find("td")[3]).html()
-				console.log(group_scn);
+				var signal_scn = $($('input[name=signals]:checked').closest("tr").find("td")[2]).html()
+				// console.log(group_scn);
 				//getting all plans for that group which that signal belongs to
 				if(i > 0){
 					$.ajax({
-						url: '../utils/get_plan_list.php',
+						url: '../utils/get_signal_plans.php',
 						type: 'POST',
 						data: {
-							group_scn: group_scn
+							group_scn: group_scn,
+							signal_scn: signal_scn
 						},
 						success: function(result) {
-							// console.log(i);
 							var plans = jQuery.parseJSON(result)
 							console.log(plans);
 							if(plans.length == 0){
@@ -228,9 +229,24 @@ $(document).ready(function(){
 							}
 							rows += '</tbody>';
 							rows2 += '</tbody>';
-							$('.up_stage_timings_signal').replaceWith(rows);
-							$('.inter_stage_timings_signal').replaceWith(rows2);
-							
+							$('.up_stage_timings_signal').replaceWith(rows).promise().done(function(){
+								$('.inter_stage_timings_signal').replaceWith(rows2).promise().done(function(){
+									var count = 0;
+									var count2 = 0;
+									var count4 = 0;
+									$($(".up_phases_tabs_signal").find('a')).each(function(){
+										$($("#up_menu_signal" + count + " .up_stage_timings_signal").find('input')).each(function(){
+											$(this).val(plans[count].StageTime[count2].StageTime);
+											count2++;
+										});	
+										$($("#up_menu_signal" + count + " .inter_stage_timings_signal").find('input')).each(function(){
+											$(this).val(plans[count].StageTime[count2].InterStageTime);
+											count4++;
+										});						
+										count++;
+									});
+								});	
+							});														
 						}
 					});
 				}
