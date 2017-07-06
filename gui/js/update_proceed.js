@@ -109,7 +109,7 @@ $( document ).ready(function() {
 						plan_ids.push(phase_elems[i].value)
 					}
 					var plan_stages = []
-					var plan_stage_menus = $("div[id^='up_menu']")
+					var plan_stage_menus = $("div[id^='up_menu0']")
 					for (var i = 0; i < plan_stage_menus.length; i++) {
 						var num_stages = parseInt($(plan_stage_menus[i]).find('.up_stages_drop').val())
 						if(isNaN(num_stages)){
@@ -171,8 +171,9 @@ $( document ).ready(function() {
 					}
 					up_plan_stage_json = get_json_from_plan_stages(plan_stages);
 					console.log($('.up_proceed').attr('signal_id'))
-					delete_signal($('.up_proceed').attr('signal_id'), "");
+					// delete_signal($('.up_proceed').attr('signal_id'), "");
 					// update_add_signal();
+					update_signal_plans();
 				}
 			}
 		});
@@ -186,7 +187,7 @@ $( document ).ready(function() {
 				data :{ip:up_ip,scn:up_scn,signal_id:signal_id,group_scn:group_scn,signal_group:up_signal_group,short_desc:up_short_desc,long_desc:up_long_desc,supplier:up_supplier,lat:up_lat,lng:up_lng,num_links:up_num_links,offset:up_offset,links_json:up_links_json,plan_stage_json:up_plan_stage_json},
 				type: 'POST',
 				success: function(result) {
-					update_signal_plans();					
+										
 				}
 		});
 	}
@@ -229,13 +230,14 @@ $( document ).ready(function() {
 			plan_info.push(obj);			
 			count++;
 		});
-
+		console.log(check);
 		if(check == 0){
+			console.log("Allo");
 			$.ajax({
 				url: '../utils/update_signal_group.php',
 				data: {
 					signal_scn: signal_scn,
-					group_scn: groupSCN,
+					group_scn: group_scn,
 					plan_info: JSON.stringify(plan_info)
 				},
 				type: 'POST',
