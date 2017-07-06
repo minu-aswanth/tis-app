@@ -6,7 +6,7 @@ $(document).ready(function(){
 			var signals = jQuery.parseJSON(result);
 			for (var i = 0; i < signals.length; i++) {
 				if(signals[i].Group_SCN == ""){signals[i].Group_SCN = 0};
-				$('.signal_table tbody').append('<tr><td colspan="1"><input type="radio" name="signals"></td><td colspan="2" group_id='+signals[i].GroupID+' group_scn='+signals[i].Group_SCN+' ip_address='+signals[i].IPAddress+' ip_address='+signals[i].IPAddress+' long_description='+signals[i].LongDescription+' signal_id='+signals[i].SignalID+' signal_offset='+signals[i].SignalOffset+'>'+(i+1)+'</td><td colspan="4">'+signals[i].SCN+'</td><td colspan="4">'+signals[i].GroupName+'</td><td colspan="4">'+signals[i].ShortDescription+'</td><td colspan="3">'+signals[i].Latitude+'</td><td colspan="3">'+signals[i].Longitude+'</td><td colspan="3">'+signals[i].NumLinks+'</td><td colspan="4">'+signals[i].Supplier+'</td></tr>')
+				$('.signal_table tbody').append('<tr><td colspan="1"><input type="radio" name="signals"></td><td colspan="2" group_id='+signals[i].GroupID+' group_scn='+signals[i].Group_SCN+' ip_address='+signals[i].IPAddress+' ip_address='+signals[i].IPAddress+' long_description='+signals[i].LongDescription+' signal_id='+signals[i].SignalID+' signal_offset='+signals[i].SignalOffset+'>'+(i+1)+'</td><td colspan="4">'+signals[i].SCN+'</td><td colspan="4">'+signals[i].Group_SCN+'</td><td colspan="4">'+signals[i].ShortDescription+'</td><td colspan="3">'+signals[i].Latitude+'</td><td colspan="3">'+signals[i].Longitude+'</td><td colspan="3">'+signals[i].NumLinks+'</td><td colspan="4">'+signals[i].Supplier+'</td></tr>')
 			}
 		}
 	});
@@ -166,9 +166,11 @@ $(document).ready(function(){
 			type: 'POST',
 			success: function(result) {
 				result = JSON.parse(result)
-				for (var i = 0; i < result.length; i++) {
+				console.log(result);
+				var i = 0;
+				for (; i < result.length; i++) {
 					if(i==0){
-						var divs = '<div id="up_menu'+i+'" class="tab-pane fade active in"><table class="table table-bordered"><tbody value="home"><tr><td colspan="2">Number of Stages</td><td colspan="2"><select class="up_stages_drop"><option disabled selected value> -- select number of stages -- </option></select></td><td colspan="2">&nbsp;</td><td colspan="2">&nbsp;</td></tr><tr><td colspan="1">Movement Mode</td><td colspan="1"><select class="up_movement_mode"><option disabled selected value> -- Mode -- </option><option value="1">Vehicle</option><option value="2">Pedestrain</option></select></td><td colspan="1">Stage</td><td colspan="1"><select class="up_num_stage_drop"><option disabled selected value> -- Stage -- </option></select></td><td colspan="2">Link</td><td colspan="2"><select class="up_link_drop"><option disabled selected value> -- Link -- </option></select></td></tr><tr><td colspan="1"><button class="btn btn-danger up_add_phase">Add Phase</button></td><td colspan="7">&nbsp;</td></tr></tbody></table><table class="table table-bordered"><thead><tr><td colspan="1">Stages</td><td colspan="1">Vehicle Phases</td><td colspan="1">Pedestrain Phases</td></tr></thead><tbody class="up_stage_movements"></tbody></table><br><br><h3 hidden>Stage Timings</h3><table class="table table-bordered" hidden><thead><tr><td colspan="1">Stage</td><td colspan="1">Time(in seconds)</td></tr></thead><tbody class="up_stage_timings"></tbody></table><br><br><h3 hidden>InterStage Timings</h3><table class="table table-bordered" hidden><thead><tr><td colspan="1">End of Stage</td><td colspan="1">Start of Stage</td><td colspan="1">Time(in seconds)</td></tr></thead><tbody class="up_inter_stage_timings"></tbody></table>'
+						var divs = '<div id="up_menu'+i+'" class="tab-pane fade active in"><table class="table table-bordered"><tbody value="home"><tr><td colspan="2">Number of Stages</td><td colspan="2"><select class="up_stages_drop"><option disabled selected value> -- select number of stages -- </option></select></td><td colspan="2">&nbsp;</td><td colspan="2">&nbsp;</td></tr><tr><td colspan="1">Movement Mode</td><td colspan="1"><select class="up_movement_mode"><option disabled selected value> -- Mode -- </option><option value="1">Vehicle</option><option value="2">Pedestrain</option></select></td><td colspan="1">Stage</td><td colspan="1"><select class="up_num_stage_drop"><option disabled selected value> -- Stage -- </option></select></td><td colspan="2">Link</td><td colspan="2"><select class="up_link_drop"><option disabled selected value> -- Link -- </option></select></td></tr><tr><td colspan="1"><button class="btn btn-danger up_add_phase">Add Phase</button></td><td colspan="7">&nbsp;</td></tr></tbody></table><table class="table table-bordered"><thead><tr><td colspan="1">Stages</td><td colspan="1">Vehicle Phases</td><td colspan="1">Pedestrain Phases</td></tr></thead><tbody class="up_stage_movements"></tbody></table><div id="new_signal_existing_plan_div"><h3>Plan Configuration</h3><ul class="nav nav-pills up_phases_tabs_signal"></ul><br><div class="tab-content up_tab_signal"></div></div><br><br><h3 hidden>Stage Timings</h3><table class="table table-bordered" hidden><thead><tr><td colspan="1">Stage</td><td colspan="1">Time(in seconds)</td></tr></thead><tbody class="up_stage_timings"></tbody></table><br><br><h3 hidden>InterStage Timings</h3><table class="table table-bordered" hidden><thead><tr><td colspan="1">End of Stage</td><td colspan="1">Start of Stage</td><td colspan="1">Time(in seconds)</td></tr></thead><tbody class="up_inter_stage_timings"></tbody></table>'
 						$('.up_tab').append(divs)
 						$('.up_phases_tabs').append('<li class="active" value="'+result[i].PlanID+'"><a data-toggle="pill" href="#up_menu0">'+result[i].StartTime+'-'+result[i].EndTime+'</a></li>')
 					}
@@ -183,9 +185,58 @@ $(document).ready(function(){
 				for (var j = 1; j < 11; j++) {
 					$(".up_stages_drop").append("<option value='"+j+"'>"+j+"</option>");
 				}
+
+				//minu's space
+				var group_scn = $($('input[name=signals]:checked').closest("tr").find("td")[3]).html()
+				console.log(group_scn);
+				//getting all plans for that group which that signal belongs to
+				if(i > 0){
+					$.ajax({
+						url: '../utils/get_plan_list.php',
+						type: 'POST',
+						data: {
+							group_scn: group_scn
+						},
+						success: function(result) {
+							// console.log(i);
+							var plans = jQuery.parseJSON(result)
+							console.log(plans);
+							if(plans.length == 0){
+								$("#new_signal_existing_plan_div").css('display', 'none');
+							}
+							for (var i = 0; i < plans.length; i++) {
+								if(i == 0){
+									var divs = '<div id="up_menu_signal'+i+'" cycle-time="'+ plans[i].CycleTime +'" class="tab-pane fade active in"><p>Cycle time: '+ plans[i].CycleTime +' seconds</p><table class="table table-bordered"><thead><tr><td colspan="1">Stage</td><td colspan="1">Time(in seconds)</td></tr></thead><tbody class="up_stage_timings_signal"></tbody></table><h3>Interstage Timings</h3><table class="table table-bordered"><thead><tr><td colspan="1">Start Stage</td><td colspan="1">End Stage</td><td colspan="1">Time(in seconds)</td></tr></thead><tbody class="inter_stage_timings_signal"></tbody></table></div>'
+									$('.up_tab_signal').append(divs)
+									$('.up_phases_tabs_signal').append('<li class="active"><a data-toggle="pill" href="#up_menu_signal'+i+'">'+plans[i].PlanSCN+'</a></li>')
+								}
+								else{
+									var divs = '<div id="up_menu_signal'+i+'" cycle-time="'+ plans[i].CycleTime +'" class="tab-pane fade"><p>Cycle time: '+ plans[i].CycleTime +' seconds</p><table class="table table-bordered"><thead><tr><td colspan="1">Stage</td><td colspan="1">Time(in seconds)</td></tr></thead><tbody class="up_stage_timings_signal"></tbody></table><h3>Interstage Timings</h3><table class="table table-bordered"><thead><tr><td colspan="1">Start Stage</td><td colspan="1">End Stage</td><td colspan="1">Time(in seconds)</td></tr></thead><tbody class="inter_stage_timings_signal"></tbody></table></div>'
+									$('.up_tab_signal').append(divs)
+									$('.up_phases_tabs_signal').append('<li><a data-toggle="pill" href="#up_menu_signal'+i+'">'+plans[i].PlanSCN+'</a></li>')
+								}
+							}
+							var noOfStages = $(".up_stages_drop").val();
+							var rows = '<tbody class="up_stage_timings_signal">';
+							var rows2 = '<tbody class="inter_stage_timings_signal">'
+							for (var j = 1; j <= noOfStages; j++) {
+								rows += '<tr><td colspan="1">Stage - '+j+'</td><td colspan="1"><input type="number" placeholder="Enter Stage '+j+' Time" class="up_stage_'+j+'"</td></tr>';		
+								if(j != noOfStages)
+									rows2 += '<tr><td colspan="1">Stage - '+j+'</td><td colspan="1">Stage - '+(j+1)+'</td><td colspan="1"><input style="width:150px" type="number" placeholder="Enter Interstage Time" class="inter_stage_'+j+'"</td></tr>';
+								else
+									rows2 += '<tr><td colspan="1">Stage - '+j+'</td><td colspan="1">Stage - '+1+'</td><td colspan="1"><input style="width:150px" type="number" placeholder="Enter Interstage Time" class="inter_stage_'+j+'"</td></tr>';
+							}
+							rows += '</tbody>';
+							rows2 += '</tbody>';
+							$('.up_stage_timings_signal').replaceWith(rows);
+							$('.inter_stage_timings_signal').replaceWith(rows2);
+							
+						}
+					});
+				}
 				up_stages_drop_bind();
 				up_add_phase_bind();
-				add_movement_mode_change_function();
+				add_movement_mode_change_function();			
 			}
 		});
  	});
@@ -214,6 +265,22 @@ $(document).ready(function(){
 					$(this).closest('div').find('.up_inter_stage_timings').append('<tr><td colspan="1">Stage - '+j+'</td><td colspan="1">Stage - '+(j+1)+'</td><td colspan="1"><input type="number" placeholder="Enter Inter Stage Time" class="up_stage_'+j+'_'+(j+1)+'"</td></tr>');
 				}
 			}
+
+			//minu's space
+			var noOfStages = $(this).find('option:selected').html();
+			var rows = '<tbody class="up_stage_timings_signal">';
+			var rows2 = '<tbody class="inter_stage_timings_signal">'
+			for (var j = 1; j <= noOfStages; j++) {
+				rows += '<tr><td colspan="1">Stage - '+j+'</td><td colspan="1"><input type="number" placeholder="Enter Stage '+j+' Time" class="up_stage_'+j+'"</td></tr>';		
+				if(j != noOfStages)
+					rows2 += '<tr><td colspan="1">Stage - '+j+'</td><td colspan="1">Stage - '+(j+1)+'</td><td colspan="1"><input style="width:150px" type="number" placeholder="Enter Interstage Time" class="inter_stage_'+j+'"</td></tr>';
+				else
+					rows2 += '<tr><td colspan="1">Stage - '+j+'</td><td colspan="1">Stage - '+1+'</td><td colspan="1"><input style="width:150px" type="number" placeholder="Enter Interstage Time" class="inter_stage_'+j+'"</td></tr>';
+			}
+			rows += '</tbody>';
+			rows2 += '</tbody>';
+			$('.up_stage_timings_signal').replaceWith(rows);
+			$('.inter_stage_timings_signal').replaceWith(rows2);
  		});
 	}
 	up_add_phase_bind = function(){

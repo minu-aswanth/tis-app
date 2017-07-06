@@ -172,7 +172,7 @@ $( document ).ready(function() {
 					up_plan_stage_json = get_json_from_plan_stages(plan_stages);
 					console.log($('.up_proceed').attr('signal_id'))
 					delete_signal($('.up_proceed').attr('signal_id'), "");
-					update_add_signal();
+					// update_add_signal();
 				}
 			}
 		});
@@ -186,8 +186,69 @@ $( document ).ready(function() {
 				data :{ip:up_ip,scn:up_scn,signal_id:signal_id,group_scn:group_scn,signal_group:up_signal_group,short_desc:up_short_desc,long_desc:up_long_desc,supplier:up_supplier,lat:up_lat,lng:up_lng,num_links:up_num_links,offset:up_offset,links_json:up_links_json,plan_stage_json:up_plan_stage_json},
 				type: 'POST',
 				success: function(result) {
-					alert("Signal has been Updated Successfully")
+					update_signal_plans();					
 				}
 		});
+	}
+
+	//minu's space
+	update_signal_plans = function(){
+		var signal_scn = $('.up_scn').val();
+		var group_scn = $($('input[name=signals]:checked').closest("tr").find("td")[3]).html()
+		// console.log(signal_scn);
+		var count = 0;
+		var plan_info = [];
+		var check = 0;
+		$($(".up_phases_tabs_signal").find('a')).each(function(){
+			var plan_scn = this.innerHTML;
+			var cycle_time = $("#up_menu_signal" + count).attr("cycle-time");
+			console.log(cycle_time);
+			var obj = {};
+			obj.plan_scn = plan_scn;
+			var totalTime = 0;
+			var timings = [];
+			var inter_stage_timings = [];
+			$($("#up_menu_signal" + count + " .up_stage_timings_signal").find('input')).each(function(){
+				// console.log($(this).val());
+				timings.push($(this).val());
+				totalTime += parseInt($(this).val());
+			});
+			// // console.log(totalTime);
+			if(totalTime != cycle_time){
+				check = 1;
+				alert("The sum of stage times is not equal to the cycle time");
+				return false;
+			}
+			$($("#up_menu_signal" + count + " .inter_stage_timings_signal").find('input')).each(function(){
+				inter_stage_timings.push($(this).val());
+			});
+			obj.timings = timings;
+			obj.inter_stage_timings = inter_stage_timings;
+			var obj2 = {};			
+			obj.offset_info = obj2;
+			plan_info.push(obj);			
+			count++;
+		});
+
+		if(check == 0){
+			$.ajax({
+				url: '../utils/update_signal_group.php',
+				data: {
+					signal_scn: signal_scn,
+					group_scn: groupSCN,
+					plan_info: JSON.stringify(plan_info)
+				},
+				type: 'POST',
+				success: function(result) {
+					if(result.includes("success")){
+						alert("Successfully updated signal");
+						location.reload();
+					}
+					else{
+						alert("Some error occured. Please try again");
+					}
+				}
+			});
+		}
 	}
 });
