@@ -1,4 +1,10 @@
 $(document).ready(function(){
+	//minu's space
+	//terms checkbox
+	$("#termsCheckbox").click(function(){
+		$('.up_proceed').prop('disabled', function(i, v) { return !v; });
+	});
+
 	$.ajax({
 		url: '../utils/get_signals.php',
 		type: 'POST',
@@ -170,12 +176,12 @@ $(document).ready(function(){
 				var i = 0;
 				for (; i < result.length; i++) {
 					if(i==0){
-						var divs = '<div id="up_menu'+i+'" class="tab-pane fade active in"><table class="table table-bordered"><tbody value="home"><tr><td colspan="2">Number of Stages</td><td colspan="2"><select class="up_stages_drop"><option disabled selected value> -- select number of stages -- </option></select></td><td colspan="2">&nbsp;</td><td colspan="2">&nbsp;</td></tr><tr><td colspan="1">Movement Mode</td><td colspan="1"><select class="up_movement_mode"><option disabled selected value> -- Mode -- </option><option value="1">Vehicle</option><option value="2">Pedestrain</option></select></td><td colspan="1">Stage</td><td colspan="1"><select class="up_num_stage_drop"><option disabled selected value> -- Stage -- </option></select></td><td colspan="2">Link</td><td colspan="2"><select class="up_link_drop"><option disabled selected value> -- Link -- </option></select></td></tr><tr><td colspan="1"><button class="btn btn-danger up_add_phase">Add Phase</button></td><td colspan="7">&nbsp;</td></tr></tbody></table><table class="table table-bordered"><thead><tr><td colspan="1">Stages</td><td colspan="1">Vehicle Phases</td><td colspan="1">Pedestrain Phases</td></tr></thead><tbody class="up_stage_movements"></tbody></table><div id="new_signal_existing_plan_div"><h3>Plan Configuration</h3><ul class="nav nav-pills up_phases_tabs_signal"></ul><br><div class="tab-content up_tab_signal"></div></div><br><br><h3 hidden>Stage Timings</h3><table class="table table-bordered" hidden><thead><tr><td colspan="1">Stage</td><td colspan="1">Time(in seconds)</td></tr></thead><tbody class="up_stage_timings"></tbody></table><br><br><h3 hidden>InterStage Timings</h3><table class="table table-bordered" hidden><thead><tr><td colspan="1">End of Stage</td><td colspan="1">Start of Stage</td><td colspan="1">Time(in seconds)</td></tr></thead><tbody class="up_inter_stage_timings"></tbody></table>'
+						var divs = '<div id="up_menu'+i+'" class="tab-pane fade active in"><table class="table table-bordered"><tbody value="home"><tr><td colspan="2">Number of Stages</td><td colspan="2"><select class="up_stages_drop"><option disabled selected value> -- select number of stages -- </option></select></td><td colspan="2">&nbsp;</td><td colspan="2">&nbsp;</td></tr><tr><td colspan="1">Movement Mode</td><td colspan="1"><select class="up_movement_mode"><option disabled selected value> -- Mode -- </option><option value="1">Vehicle</option><option value="2">Pedestrain</option></select></td><td colspan="1">Stage</td><td colspan="1"><select class="up_num_stage_drop"><option disabled selected value> -- Stage -- </option></select></td><td colspan="2">Link</td><td colspan="2"><select class="up_link_drop"><option disabled selected value> -- Link -- </option></select></td></tr><tr><td colspan="1"><button class="btn btn-danger up_add_phase">Add Phase</button></td><td colspan="7">&nbsp;</td></tr></tbody></table><table class="table table-bordered"><thead><tr><td colspan="1">Stages</td><td colspan="1">Vehicle Phases</td><td colspan="1">Pedestrain Phases</td></tr></thead><tbody class="up_stage_movements"></tbody></table><div id="new_signal_existing_plan_div"><h3>Plan Configuration</h3><ul class="nav nav-pills up_phases_tabs_signal"></ul><br><div class="tab-content up_tab_signal"></div></div><h3 hidden>Stage Timings</h3><table class="table table-bordered" hidden><thead><tr><td colspan="1">Stage</td><td colspan="1">Time(in seconds)</td></tr></thead><tbody class="up_stage_timings"></tbody></table><h3 hidden>InterStage Timings</h3><table class="table table-bordered" hidden><thead><tr><td colspan="1">End of Stage</td><td colspan="1">Start of Stage</td><td colspan="1">Time(in seconds)</td></tr></thead><tbody class="up_inter_stage_timings"></tbody></table>'
 						$('.up_tab').append(divs)
 						$('.up_phases_tabs').append('<li class="active" value="'+result[i].PlanID+'"><a data-toggle="pill" href="#up_menu0">'+result[i].StartTime+'-'+result[i].EndTime+'</a></li>')
 					}
 					else{
-						var divs = '<div id="up_menu'+i+'" class="tab-pane fade"><table class="table table-bordered"><tbody value="home"><tr><td colspan="2">Number of Stages</td><td colspan="2"><select class="up_stages_drop"><option disabled selected value> -- select number of stages -- </option></select></td><td colspan="2">&nbsp;</td><td colspan="2">&nbsp;</td></tr><tr><td colspan="1">Movement Mode</td><td colspan="1"><select class="up_movement_mode"><option disabled selected value> -- Mode -- </option><option value="1">Vehicle</option><option value="2">Pedestrain</option></select></td><td colspan="1">Stage</td><td colspan="1"><select class="up_num_stage_drop"><option disabled selected value> -- Stage -- </option></select></td><td colspan="2">Link</td><td colspan="2"><select class="up_link_drop"><option disabled selected value> -- Link -- </option></select></td></tr><tr><td colspan="1"><button class="btn btn-danger up_add_phase">Add Phase</button></td><td colspan="7">&nbsp;</td></tr></tbody></table><table class="table table-bordered"><thead><tr><td colspan="1">Stages</td><td colspan="1">Vehicle Phases</td><td colspan="1">Pedestrain Phases</td></tr></thead><tbody class="up_stage_movements"></tbody></table><br><br><h3 hidden>Stage Timings</h3><table class="table table-bordered" hidden><thead><tr><td colspan="1">Stage</td><td colspan="1">Time(in seconds)</td></tr></thead><tbody class="up_stage_timings"></tbody></table><br><br><h3 hidden>InterStage Timings</h3><table class="table table-bordered" hidden><thead><tr><td colspan="1">End of Stage</td><td colspan="1">Start of Stage</td><td colspan="1">Time(in seconds)</td></tr></thead><tbody class="up_inter_stage_timings"></tbody></table>'
+						var divs = '<div id="up_menu'+i+'" class="tab-pane fade"><table class="table table-bordered"><tbody value="home"><tr><td colspan="2">Number of Stages</td><td colspan="2"><select class="up_stages_drop"><option disabled selected value> -- select number of stages -- </option></select></td><td colspan="2">&nbsp;</td><td colspan="2">&nbsp;</td></tr><tr><td colspan="1">Movement Mode</td><td colspan="1"><select class="up_movement_mode"><option disabled selected value> -- Mode -- </option><option value="1">Vehicle</option><option value="2">Pedestrain</option></select></td><td colspan="1">Stage</td><td colspan="1"><select class="up_num_stage_drop"><option disabled selected value> -- Stage -- </option></select></td><td colspan="2">Link</td><td colspan="2"><select class="up_link_drop"><option disabled selected value> -- Link -- </option></select></td></tr><tr><td colspan="1"><button class="btn btn-danger up_add_phase">Add Phase</button></td><td colspan="7">&nbsp;</td></tr></tbody></table><table class="table table-bordered"><thead><tr><td colspan="1">Stages</td><td colspan="1">Vehicle Phases</td><td colspan="1">Pedestrain Phases</td></tr></thead><tbody class="up_stage_movements"></tbody></table><h3 hidden>Stage Timings</h3><table class="table table-bordered" hidden><thead><tr><td colspan="1">Stage</td><td colspan="1">Time(in seconds)</td></tr></thead><tbody class="up_stage_timings"></tbody></table><h3 hidden>InterStage Timings</h3><table class="table table-bordered" hidden><thead><tr><td colspan="1">End of Stage</td><td colspan="1">Start of Stage</td><td colspan="1">Time(in seconds)</td></tr></thead><tbody class="up_inter_stage_timings"></tbody></table>'
 						$('.up_tab').append(divs)
 						$('.up_phases_tabs').append('<li value="'+result[i].PlanID+'"><a data-toggle="pill" href="#up_menu'+i+'">'+result[i].StartTime+'-'+result[i].EndTime+'</a></li>')
 					}
@@ -200,19 +206,20 @@ $(document).ready(function(){
 							signal_scn: signal_scn
 						},
 						success: function(result) {
-							var plans = jQuery.parseJSON(result)
+							var response = jQuery.parseJSON(result)
+							var plans = response.plans;
 							console.log(plans);
 							if(plans.length == 0){
 								$("#new_signal_existing_plan_div").css('display', 'none');
 							}
 							for (var i = 0; i < plans.length; i++) {
 								if(i == 0){
-									var divs = '<div id="up_menu_signal'+i+'" cycle-time="'+ plans[i].CycleTime +'" class="tab-pane fade active in"><p>Cycle time: '+ plans[i].CycleTime +' seconds</p><table class="table table-bordered"><thead><tr><td colspan="1">Stage</td><td colspan="1">Time(in seconds)</td></tr></thead><tbody class="up_stage_timings_signal"></tbody></table><h3>Interstage Timings</h3><table class="table table-bordered"><thead><tr><td colspan="1">Start Stage</td><td colspan="1">End Stage</td><td colspan="1">Time(in seconds)</td></tr></thead><tbody class="inter_stage_timings_signal"></tbody></table></div>'
+									var divs = '<div id="up_menu_signal'+i+'" cycle-time="'+ plans[i].CycleTime +'" class="tab-pane fade active in"><p>Cycle time: '+ plans[i].CycleTime +' seconds</p><table class="table table-bordered"><thead><tr><td colspan="1">Stage</td><td colspan="1">Time(in seconds)</td></tr></thead><tbody class="up_stage_timings_signal"></tbody></table></div>'
 									$('.up_tab_signal').append(divs)
 									$('.up_phases_tabs_signal').append('<li class="active"><a data-toggle="pill" href="#up_menu_signal'+i+'">'+plans[i].PlanSCN+'</a></li>')
 								}
 								else{
-									var divs = '<div id="up_menu_signal'+i+'" cycle-time="'+ plans[i].CycleTime +'" class="tab-pane fade"><p>Cycle time: '+ plans[i].CycleTime +' seconds</p><table class="table table-bordered"><thead><tr><td colspan="1">Stage</td><td colspan="1">Time(in seconds)</td></tr></thead><tbody class="up_stage_timings_signal"></tbody></table><h3>Interstage Timings</h3><table class="table table-bordered"><thead><tr><td colspan="1">Start Stage</td><td colspan="1">End Stage</td><td colspan="1">Time(in seconds)</td></tr></thead><tbody class="inter_stage_timings_signal"></tbody></table></div>'
+									var divs = '<div id="up_menu_signal'+i+'" cycle-time="'+ plans[i].CycleTime +'" class="tab-pane fade"><p>Cycle time: '+ plans[i].CycleTime +' seconds</p><table class="table table-bordered"><thead><tr><td colspan="1">Stage</td><td colspan="1">Time(in seconds)</td></tr></thead><tbody class="up_stage_timings_signal"></tbody></table></div>'
 									$('.up_tab_signal').append(divs)
 									$('.up_phases_tabs_signal').append('<li><a data-toggle="pill" href="#up_menu_signal'+i+'">'+plans[i].PlanSCN+'</a></li>')
 								}
@@ -220,8 +227,10 @@ $(document).ready(function(){
 							var noOfStages = $(".up_stages_drop").val();
 							var rows = '<tbody class="up_stage_timings_signal">';
 							var rows2 = '<tbody class="inter_stage_timings_signal">'
+							var rows3 = '<tbody class="max_min_timings_signal">'
 							for (var j = 1; j <= noOfStages; j++) {
 								rows += '<tr><td colspan="1">Stage - '+j+'</td><td colspan="1"><input type="number" placeholder="Enter Stage '+j+' Time" class="up_stage_'+j+'"</td></tr>';		
+								rows3 += '<tr><td colspan="1">Stage - '+j+'</td><td colspan="1"><input class="max_timings" type="number"></td><td colspan="1"><input class="min_timings" type="number"></td></tr>';		
 								if(j != noOfStages)
 									rows2 += '<tr><td colspan="1">Stage - '+j+'</td><td colspan="1">Stage - '+(j+1)+'</td><td colspan="1"><input style="width:150px" type="number" placeholder="Enter Interstage Time" class="inter_stage_'+j+'"</td></tr>';
 								else
@@ -229,25 +238,38 @@ $(document).ready(function(){
 							}
 							rows += '</tbody>';
 							rows2 += '</tbody>';
+							rows3 += '</tbody>';
 							$('.up_stage_timings_signal').replaceWith(rows).promise().done(function(){
-								$('.inter_stage_timings_signal').replaceWith(rows2).promise().done(function(){
-									var count = 0;
-									$($(".up_phases_tabs_signal").find('a')).each(function(){
-										var count2 = 0;
+								$('.max_min_timings_signal').replaceWith(rows3).promise().done(function(){
+									$('.inter_stage_timings_signal').replaceWith(rows2).promise().done(function(){
+										var count = 0;
+										$($(".up_phases_tabs_signal").find('a')).each(function(){
+											var count2 = 0;
+											console.log($("#up_menu_signal0 .up_stage_timings_signal").find('input'));
+											$($("#up_menu_signal" + count + " .up_stage_timings_signal").find('input')).each(function(){
+												console.log(count2);
+												$(this).val(plans[count].StageTime[count2].StageTime);
+												count2++;
+											});																		
+											count++;
+										});
 										var count4 = 0;										
-										console.log($("#up_menu_signal0 .up_stage_timings_signal").find('input'));
-										$($("#up_menu_signal" + count + " .up_stage_timings_signal").find('input')).each(function(){
-											console.log(count2);
-											$(this).val(plans[count].StageTime[count2].StageTime);
-											count2++;
-										});	
-										$($("#up_menu_signal" + count + " .inter_stage_timings_signal").find('input')).each(function(){
-											$(this).val(plans[count].StageTime[count4].InterStageTime);
+										$($(".inter_stage_timings_signal").find('input')).each(function(){
+											$(this).val(response.inter_stage_timings[count4]);
 											count4++;
-										});						
-										count++;
-									});
-								});	
+										});
+										var count5 = 0;										
+										$($(".max_min_timings_signal").find('.max_timings')).each(function(){
+											$(this).val(response.max_time[count5]);
+											count5++;
+										});
+										var count6 = 0;										
+										$($(".max_min_timings_signal").find('.min_timings')).each(function(){
+											$(this).val(response.min_time[count6]);
+											count6++;
+										});
+									});	
+								});
 							});														
 						}
 					});

@@ -319,15 +319,15 @@
 				</tr>
 				<tr>
 					<td colspan="1">Short Description</td>
-					<td colspan="1"><input type="text" class="up_short_desc" placeholder="Enter Short Description"  disabled style="background-color: transparent;border: 0px;box-shadow: 0px 0px 0px 0px;"/></td>
+					<td colspan="1"><input type="text" class="up_short_desc" placeholder="Enter Short Description" style="background-color: transparent;border: 0px;box-shadow: 0px 0px 0px 0px;"/></td>
 				</tr>
 				<tr>
 					<td colspan="1">Long Description</td>
-					<td colspan="1"><textarea class="up_long_desc" placeholder="Enter Long Description"  disabled style="background-color: transparent;border: 0px;box-shadow: 0px 0px 0px 0px;"/></textarea></td>
+					<td colspan="1"><textarea class="up_long_desc" placeholder="Enter Long Description" style="background-color: transparent;border: 0px;box-shadow: 0px 0px 0px 0px;"/></textarea></td>
 				</tr>
 				<tr>
 					<td colspan="1">Supplier</td>
-					<td colspan="1"><input type="text" class="up_supplier" placeholder="Enter Supplier Name"  disabled style="background-color: transparent;border: 0px;box-shadow: 0px 0px 0px 0px;"/></td>
+					<td colspan="1"><input type="text" class="up_supplier" placeholder="Enter Supplier Name" style="background-color: transparent;border: 0px;box-shadow: 0px 0px 0px 0px;"/></td>
 				</tr>
 			</tbody>
 		</table>
@@ -382,6 +382,30 @@
   			</div>
 	</div>
 		<br><br>
+		<h3>Interstage Timings</h3>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<td colspan="1">Start Stage</td>
+					<td colspan="1">End Stage</td>
+					<td colspan="1">Time(in seconds)</td>
+				</tr>
+			</thead>
+			<tbody class="inter_stage_timings_signal"></tbody>
+		</table>
+
+		<h3>Maximum Minimum Timings</h3>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<td colspan="1">Start Stage</td>
+					<td colspan="1">Maximum Time(in seconds)</td>
+					<td colspan="1">Minimum Time(in seconds)</td>
+				</tr>
+			</thead>
+			<tbody class="max_min_timings_signal"></tbody>
+		</table>
+
 		<h3 hidden>Signal Offset Information</h3>
 		<table class="table" hidden>
 			<tbody>
@@ -392,11 +416,17 @@
 			</tbody>
 		</table>
 		<br><br>
+		<div style="text-align: left;">
+			<p>I hereby acknowledge the following:</p>
+			<p>(a) The minimum and maximum stage durations entered here is the same as minimum and maximum stage durations configured on the traffic signal controller on-street, if applicable.</p>
+			<p>(b) The inter-stage timings entered on this screen exactly match the inter-stage timings configured on the traffic signal controller on-street.</p>
+			<p><input type="checkbox" name="termsCheck" id="termsCheckbox"> I have verified the above and I certify that these are true to the best of my knowledge.</p>
+		</div>
 		<table class="table">
 			<tbody>
 				<tr>
 					<td colspan="1">&nbsp;</td>
-					<td colspan="1"><button type="button" class="up_proceed btn btn-danger">Update</button></td>
+					<td colspan="1"><button disabled type="button" class="up_proceed btn btn-danger">Update</button></td>
 				</tr>
 			</tbody>
 		</table>

@@ -172,8 +172,10 @@ $( document ).ready(function() {
 					up_plan_stage_json = get_json_from_plan_stages(plan_stages);
 					console.log($('.up_proceed').attr('signal_id'))
 					delete_signal($('.up_proceed').attr('signal_id'), "");
-					update_add_signal();
-					update_signal_plans();
+					if($('input[name="termsCheck"]:checked').length > 0){
+						update_add_signal();
+						update_signal_plans();
+					}					
 				}
 			}
 		});
@@ -208,7 +210,6 @@ $( document ).ready(function() {
 			obj.plan_scn = plan_scn;
 			var totalTime = 0;
 			var timings = [];
-			var inter_stage_timings = [];
 			$($("#up_menu_signal" + count + " .up_stage_timings_signal").find('input')).each(function(){
 				// console.log($(this).val());
 				timings.push($(this).val());
@@ -220,24 +221,37 @@ $( document ).ready(function() {
 				alert("The sum of stage times is not equal to the cycle time");
 				return false;
 			}
-			$($("#up_menu_signal" + count + " .inter_stage_timings_signal").find('input')).each(function(){
-				inter_stage_timings.push($(this).val());
-			});
+			
 			obj.timings = timings;
-			obj.inter_stage_timings = inter_stage_timings;
 			var obj2 = {};			
 			obj.offset_info = obj2;
 			plan_info.push(obj);			
 			count++;
 		});
-		console.log(check);
+		var inter_stage_timings = [];
+		$($(".inter_stage_timings_signal").find('input')).each(function(){
+			inter_stage_timings.push($(this).val());
+		});
+		var max_timings = [];
+		$($(".max_min_timings_signal").find('.max_timings')).each(function(){
+			max_timings.push($(this).val());
+		});
+		var min_timings = [];
+		$($(".max_min_timings_signal").find('.min_timings')).each(function(){
+			min_timings.push($(this).val());
+		});
+
+		// console.log(max_min_timings);
 		if(check == 0){
-			console.log("Allo");
+			// console.log("Allo");
 			$.ajax({
 				url: '../utils/update_signal_plans.php',
 				data: {
 					signal_scn: signal_scn,
 					group_scn: group_scn,
+					inter_stage_timings: inter_stage_timings,
+					max_timings: max_timings,
+					min_timings: min_timings,
 					plan_info: JSON.stringify(plan_info)
 				},
 				type: 'POST',
