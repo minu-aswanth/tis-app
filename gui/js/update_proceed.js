@@ -249,9 +249,9 @@ $( document ).ready(function() {
 				data: {
 					signal_scn: signal_scn,
 					group_scn: group_scn,
-					inter_stage_timings: inter_stage_timings,
-					max_timings: max_timings,
-					min_timings: min_timings,
+					inter_stage_timings: JSON.stringify(inter_stage_timings),
+					max_timings: JSON.stringify(max_timings),
+					min_timings: JSON.stringify(min_timings),
 					plan_info: JSON.stringify(plan_info)
 				},
 				type: 'POST',

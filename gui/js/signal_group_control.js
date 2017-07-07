@@ -761,6 +761,7 @@ $(document).ready(function() {
 		});		
 	});
 
+	//function called when timetable is changed when updating calendar
 	$('.timetable_scn_select_update').change(function(){
 		var timetable_scn = $(this).val();
 		var day = $(this)[0].id.replace('_select_update','');
@@ -810,6 +811,7 @@ $(document).ready(function() {
 		});		
 	});
 
+	//function called when timetable is changed when updating special event
 	$('.timetable_scn_select_event_update').change(function(){
 		var timetable_scn = $(this).val();
 		// console.log($(this)[0].id.replace('_select',''));
